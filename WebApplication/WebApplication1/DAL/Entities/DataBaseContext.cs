@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApplication1.DAL.Entities;
 
-namespace WebApplication1.DAL
+namespace WebApplication1.DAL.Entities
 {
     public class DataBaseContext : DbContext
     {
@@ -15,10 +14,15 @@ namespace WebApplication1.DAL
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Country>().HasIndex(c => c.Name).IsUnique();
+            modelBuilder.Entity<State>().HasIndex("Name", "CountryId").IsUnique();// Haciendo un indice compuesto 
         }
 
-        #region DbSet
+        #region DbSets
+
         public DbSet<Country> Countries { get; set; }
+
+        public DbSet<State> States { get; set; }
+
         #endregion
     }
 }
